@@ -1,8 +1,8 @@
 use std::fs;
 use std::path::Path;
 
-pub fn run() {
-    let file = fs::read_to_string(Path::new("./src/trebochet/codes.txt")).expect("file exists");
+fn main() {
+    let file = fs::read_to_string(Path::new("./day_01/src/codes.txt")).expect("file exists");
 
     let codes = file.split("\n").collect::<Vec<_>>();
 
