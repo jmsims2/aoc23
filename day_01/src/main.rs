@@ -2,13 +2,14 @@ use std::fs;
 use std::path::Path;
 
 fn main() {
-    part_one();
-    part_two();
+    let file = fs::read_to_string(Path::new("./day_01/src/codes.txt")).expect("file exists");
+    let part_one_result = part_one(&file);
+    let part_two_result = part_two(&file);
+    println!("day 1 part 1 result is {part_one_result}");
+    println!("day 1 part 2 result is {part_two_result}");
 }
 
-fn part_one() {
-    let file = fs::read_to_string(Path::new("./day_01/src/codes.txt")).expect("file exists");
-
+fn part_one(file: &String) -> i32 {
     let codes = file.split("\n").collect::<Vec<_>>();
 
     let mut result = 0;
@@ -27,13 +28,10 @@ fn part_one() {
         string.push(*last);
         result = result + string.parse::<i32>().unwrap();
     }
-    let format_result = result.to_string();
-    println!("part 1 result is {format_result}");
+    result
 }
 
-fn part_two() {
-    let file = fs::read_to_string(Path::new("./day_01/src/codes.txt")).expect("file exists");
-
+fn part_two(file: &String) -> i32 {
     let codes = file.split("\n").collect::<Vec<_>>();
 
     let mut result = 0;
@@ -62,6 +60,24 @@ fn part_two() {
         string.push(*last);
         result = result + string.parse::<i32>().unwrap();
     }
-    let format_result = result.to_string();
-    println!("part 2 result is {format_result}");
+    result
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn part_one_gets_the_right_value() {
+        let file =
+            fs::read_to_string(Path::new("./../day_01/src/codes_test_1.txt")).expect("file exists");
+        assert_eq!(part_one(&file), 142);
+    }
+
+    #[test]
+    fn part_two_gets_the_right_value() {
+        let file =
+            fs::read_to_string(Path::new("./../day_01/src/codes_test_2.txt")).expect("file exists");
+        assert_eq!(part_two(&file), 281);
+    }
 }
