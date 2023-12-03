@@ -1,5 +1,7 @@
 # Advent of Code 2023
 
+![Tests](https://github.com/jmsims2/aoc23/actions/workflows/rust.yml/badge.svg)
+
 ### Running the Project
 
 ```
