@@ -10,8 +10,8 @@ fn main() {
     let file = fs::read_to_string(Path::new("./day_02/src/games.txt")).expect("file exists");
     let part_one_result = part_one(&file);
     let part_two_result = part_two(&file);
-    println!("day 1 part 1 result is {part_one_result}");
-    println!("day 1 part 2 result is {part_two_result}");
+    println!("day 2 part 1 result is {part_one_result}");
+    println!("day 2 part 2 result is {part_two_result}");
 }
 
 fn part_one(file: &String) -> i32 {
