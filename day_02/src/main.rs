@@ -8,13 +8,15 @@ enum Block {
 }
 fn main() {
     let file = fs::read_to_string(Path::new("./day_02/src/games.txt")).expect("file exists");
-    part_one(&file);
-    part_two(&file);
+    let part_one_result = part_one(&file);
+    let part_two_result = part_two(&file);
+    println!("day 1 part 1 result is {part_one_result}");
+    println!("day 1 part 2 result is {part_two_result}");
 }
 
-fn part_one(file: &String) {
+fn part_one(file: &String) -> i32 {
     let games = file.split("\n");
-    let result: i32 = games
+    games
         .into_iter()
         .map(|g| {
             let (game, results) = g.split_at(g.find(":").unwrap());
@@ -40,14 +42,12 @@ fn part_one(file: &String) {
                 0
             };
         })
-        .sum();
-
-    println!("day 2, part one result is {result}");
+        .sum()
 }
 
-fn part_two(file: &String) {
+fn part_two(file: &String) -> i32 {
     let games = file.split("\n");
-    let result: i32 = games
+    games
         .into_iter()
         .map(|g| {
             let (_game, results) = g.split_at(g.find(":").unwrap());
@@ -73,9 +73,7 @@ fn part_two(file: &String) {
 
             return red * blue * green;
         })
-        .sum();
-
-    println!("day 2, part 2 result is {result}");
+        .sum()
 }
 
 fn get_block(string: &str) -> Block {
@@ -87,5 +85,24 @@ fn get_block(string: &str) -> Block {
         _ => {
             panic!("wtf");
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn day_2_part_one_gets_the_right_value() {
+        let file =
+            fs::read_to_string(Path::new("./../day_02/src/games_test.txt")).expect("file exists");
+        assert_eq!(part_one(&file), 8);
+    }
+
+    #[test]
+    fn day_2_part_two_gets_the_right_value() {
+        let file =
+            fs::read_to_string(Path::new("./../day_02/src/games_test.txt")).expect("file exists");
+        assert_eq!(part_two(&file), 2286);
     }
 }

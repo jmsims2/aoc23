@@ -68,14 +68,14 @@ mod tests {
     use super::*;
 
     #[test]
-    fn part_one_gets_the_right_value() {
+    fn day_1_part_one_gets_the_right_value() {
         let file =
             fs::read_to_string(Path::new("./../day_01/src/codes_test_1.txt")).expect("file exists");
         assert_eq!(part_one(&file), 142);
     }
 
     #[test]
-    fn part_two_gets_the_right_value() {
+    fn day_1_part_two_gets_the_right_value() {
         let file =
             fs::read_to_string(Path::new("./../day_01/src/codes_test_2.txt")).expect("file exists");
         assert_eq!(part_two(&file), 281);
