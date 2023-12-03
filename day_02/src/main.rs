@@ -8,15 +8,17 @@ enum Block {
 }
 fn main() {
     let file = fs::read_to_string(Path::new("./day_02/src/games.txt")).expect("file exists");
+    part_one(&file);
+    part_two(&file);
+}
+
+fn part_one(file: &String) {
     let games = file.split("\n");
     let result: i32 = games
         .into_iter()
         .map(|g| {
             let (game, results) = g.split_at(g.find(":").unwrap());
-            println!("game {game}");
-            println!("results {results}");
             let (_, game_id) = game.split_at(game.find(" ").unwrap());
-            println!("game_id {game_id}");
             let results_2 = &results
                 .replace(";", ",")
                 .replace(":", "")
@@ -40,18 +42,49 @@ fn main() {
         })
         .sum();
 
-    println!("day 2 result is {result}");
+    println!("day 2, part one result is {result}");
+}
+
+fn part_two(file: &String) {
+    let games = file.split("\n");
+    let result: i32 = games
+        .into_iter()
+        .map(|g| {
+            let (_game, results) = g.split_at(g.find(":").unwrap());
+            let results_2 = &results
+                .replace(";", ",")
+                .replace(":", "")
+                .trim()
+                .to_string();
+            let mut red = 1;
+            let mut green = 1;
+            let mut blue = 1;
+
+            let game_results = results_2.split(", ").into_iter();
+
+            for sample in game_results {
+                match get_block(sample) {
+                    Block::Red(n) if n > red => red = n,
+                    Block::Green(n) if n > green => green = n,
+                    Block::Blue(n) if n > blue => blue = n,
+                    _ => (),
+                }
+            }
+
+            return red * blue * green;
+        })
+        .sum();
+
+    println!("day 2, part 2 result is {result}");
 }
 
 fn get_block(string: &str) -> Block {
-    println!("argument {string}");
     let (num, color) = string.split_at(string.find(" ").unwrap());
     match color.trim() {
         "red" => Block::Red(num.parse::<i32>().unwrap()),
         "green" => Block::Green(num.parse::<i32>().unwrap()),
         "blue" => Block::Blue(num.parse::<i32>().unwrap()),
-        wtf => {
-            println!("what are you {wtf}");
+        _ => {
             panic!("wtf");
         }
     }
